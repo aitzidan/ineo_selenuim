@@ -1,0 +1,20 @@
+services:
+  mongo_db:
+    container_name: mongo_Container
+    image: mongo:latest
+    restart: always
+    volumes:
+      - mongo_db:/data/db
+
+  api:
+    build: .
+    ports:
+      - 3000:3000
+    environment:
+      PORT: 3000
+      MONGO_URL: mongodb://mongo_db:27017/test
+    depends_on:
+      - mongo_db
+
+volumes:
+  mongo_db: {}
