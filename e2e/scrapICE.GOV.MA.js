@@ -8,8 +8,8 @@ const getICE = async (req, res) => {
 	let result;
 
 	// Check database first (commented out - uncomment when ready)
-	const company = await Company.findOne({ identifiantCommunEntreprise: ICE });
-	// const company = null;
+	// const company = await Company.findOne({ identifiantCommunEntreprise: ICE });
+	const company = null;
 
 	if (company) {
 		res.status(200).send(company);
