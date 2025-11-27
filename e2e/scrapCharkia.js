@@ -180,8 +180,18 @@ async function searchCharika(companyName) {
 
 		// Step 6: Fill search field
 		console.log("Filling search field...");
-		await driver.executeScript(`
-        	var searchInput = document.querySelector('input[name="sDenomination"][data-gtm-form-interact-field-id="0"]');
+		let companySearch = await driver.findElement(By.xpath('(//input[@name="sDenomination"])[2]'));
+		await companySearch.clear();
+		await companySearch.sendKeys(companyName);
+		await sleep(5000);
+
+		// Find the submit button that's a sibling of the input field
+		let submitBtn = await driver.findElement(By.xpath('(//input[@name="sDenomination"])[2]/following-sibling::button[@type="submit"]'));
+		await submitBtn.click();
+		await sleep(5000);
+
+		/*await driver.executeScript(`
+        	var searchInput = document.querySelector('input[name="sDenomination"]');
 
 
 			if (searchInput) {
@@ -201,7 +211,7 @@ async function searchCharika(companyName) {
 			}
 		`);
 		console.log("Search submitted");
-		await sleep(4000);
+		await sleep(4000);*/
 
 		// Step 8: Wait for results
 		try {
